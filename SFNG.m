@@ -10,7 +10,7 @@ pos = length(seed);
 %if mlinks > 5 || Nodes > 15000 || pos > 15000
 %    warning('Abnormally large value(s) may cause long processing time');
 %end
-
+%%%%%%%
 rand('state',sum(100*clock));
 
 Net = zeros(Nodes, Nodes, 'single');

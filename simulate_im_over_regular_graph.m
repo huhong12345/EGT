@@ -1,7 +1,7 @@
 function result = simulate_im_over_regular_graph(uff, ufn, unn, graph, alpha, iterate_time, N)
     function fit_result = fitness_calculate(index)
         fit = (1-alpha);     %fit=(1-alpha)+alpha*U
-        n = length(action_table);    %n=N
+%        n = length(action_table);    %n=N
         l = 1;
         if action_table(index)==1       %若输入为forward    
             while con_matrix(index, l) ~= 0        %循环k次
