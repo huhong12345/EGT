@@ -1,5 +1,4 @@
 function result = bd_updating_process(uff, ufn, unn, con_matrix, alpha, iterate_time, N)
-
     function fit_result = fitness_calculate(index)
         %dont calculate 1-alpha directly
 		fit = 0;
