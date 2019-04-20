@@ -1,0 +1,42 @@
+mean_result = simulate_im_control_script(uff, ufn, unn, N, k, alpha, iteration_time);
+N=1000 %The scale of the Graph
+
+uff=0.6;ufn=0.8;unn=0.4;
+alpha=0.01;
+iteration_time=400;
+
+simulation_2_result = zeros(12,iteration_time);
+%make i graph results
+parfor i = 1:12
+        disp('The ',i,'th graph');
+
+%         generate regular graph
+% -----------------------------------------------------------
+        graph_sparse = createRandRegGraph(N, k);
+        graph_matrix = full(graph_sparse);
+% -----------------------------------------------------------
+%       generate scale-free graph
+% -----------------------------------------------------------
+%         seed = seed_produce(5);
+%         graph_matrix = SFNG(N, k, seed);
+% -----------------------------------------------------------
+
+%       generate ER graph
+% -----------------------------------------------------------
+%         graph_matrix = ERRandomGraphGenerate(N, k/N);
+% -----------------------------------------------------------
+       
+        graph = graph_change(graph_matrix, N);
+        mean_table_2 = zeros(12, iteration_time);
+        for j = 1: 12
+            j
+%             mean_table_2(j,:) = simulate_im_over_regular_graph_with_iru(uff, ufn, unn, graph_matrix, alpha, ir, iteration_time, N);
+            mean_table_2(j, :) = simulate_im_over_regular_graph(uff, ufn, unn, graph, alpha, iteration_time, N);
+        end
+        simulation_2_result(i,:) = mean(mean_table_2);
+end
+
+    mean_2 = mean(simulation_2_result);
+    
+%     plot(mean_2);
+
