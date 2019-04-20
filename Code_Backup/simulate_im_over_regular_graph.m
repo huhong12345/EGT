@@ -20,6 +20,7 @@ function result = simulate_im_over_regular_graph(uff, ufn, unn, graph, alpha, it
                     fit = fit + alpha*unn;
                 end
                 l = l + 1;
+                
             end
         end
         fit_result = fit;
