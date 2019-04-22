@@ -1,8 +1,8 @@
 function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, iterate_time, N,k)
     function fit_result = fitness_calculate(index)
         fitness = (1-alpha);     %fit=(1-alpha)+alpha*U
-        for l=1:k
-            fitness=fit+alpha*U(index,strategy_state(graph(index,l))); 
+        for q=1:k
+            fitness=fitness+alpha*U(index,strategy_state(graph(index,q)));%fitness=1+alpha*U(i,j)
         end
         fit_result = fitness;
     end
@@ -36,14 +36,11 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
     Q=K';
     x(:,time)=Q/N;     %initial the start 
     time = time + 1;
-    while time<=iterate_time
-        %每次遍历全部点，并根据IM——rule更新
-         for p = 1:N
+    while time<=iterate_time      
+        for p = 1:N          %每次遍历全部点，并根据IM——rule更新
             i = randi(N);    %%随机从N个人中选一个i
             friend_list=graph(i,:);           
             fit_self = fitness_calculate(i);    %算出自己的fitness
-            %fit1=0;fit2=0;fit3=0;fit4=0;
-            %fit=[fit1,fit2,fit3,fit4];
             fit=[0,0,0,0];
             for j=1:k
                 fit(strategy_state(j))=fit(strategy_state(j))+fitness_calculate(friend_list(j));
