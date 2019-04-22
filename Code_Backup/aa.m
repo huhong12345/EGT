@@ -1,119 +1,84 @@
 function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, iterate_time, N,k)
     function fit_result = fitness_calculate(index)
-        fit = (1-alpha);     %fit=(1-alpha)+alpha*U
+        fitness = (1-alpha);     %fit=(1-alpha)+alpha*U
         for l=1:k
-            fit=fit+alpha*U(index,strategy_state(graph(index,l))); 
+            fitness=fit+alpha*U(index,strategy_state(graph(index,l))); 
         end
-        fit_result = fit;
+        fit_result = fitness;
     end
 
     strategy_state = zeros(1,N);  %定义出长度为N的0矩阵（1*N)
     z=[0.05,0.025,0.025,0.9];           %define the percentage of every strategy
-    K=N*z;
-    starter_table=randperm(N);          %打乱的
-    S1=[];S2=[];S3=[];S4=[];
-    S1=zeros(1,N);
-    S2=zeros(1,N);
-    S3=zeros(1,N);
-    S4=zeros(1,N);
-%    S=[S1;S2;S3;S4];
-
-    
+    K=N*z;                        %K矩阵为最重要的比例矩阵
+    starter_table=randperm(N);          %打乱的N个数
+    %S1=[];S2=[];S3=[];S4=[];   
     for i=1:N                           %define the strategy state 1,2,3,4
         if i<=K(1)
             strategy_state(starter_table(i))=1;
-            S1=[S1,starter_table(i)]
-   %         S1(i)=strategy_state(i);
+            %S1=[S1,starter_table(i)]
         end
         if K(1)<i<=K(2)
             strategy_state(starter_table(i))=2;
-            S2=[S2,starter_table(i)]
-%            S2(i-K(1)=strategy_state(i);
+            %S2=[S2,starter_table(i)]
         end
         if K(2)<i<=K(3)
             strategy_state(starter_table(i))=3;
-            S3=[S3,starter_table(i)]
-%            S3(i-K(2))=strategy_state(i);
+            %S3=[S3,starter_table(i)]
         end
         if i>K(3)
             strategy_state(starter_table(i))=4;
-            S4=[S4,starter_table(i)]
-%           S4(i-K(3))=strategy_state(i);
+           % S4=[S4,starter_table(i)]
         end   
     end  
-    S=[S1;S2;S3;S4];   
-
-
+    %S=[S1;S2;S3;S4];    Si表示第i种策略人的标号集合
     x=zeros(4,iterate_time);
     time = 1;
-    for i=1:4
-        x(i,time) = K(i)/N;     %initialize the start 
-    end
+    Q=K';
+    x(:,time)=Q/N;     %initial the start 
     time = time + 1;
     while time<=iterate_time
         %每次遍历全部点，并根据IM——rule更新
          for p = 1:N
             i = randi(N);    %%随机从N个人中选一个i
-            friend_list=graph(i,:);
+            friend_list=graph(i,:);           
             fit_self = fitness_calculate(i);    %算出自己的fitness
-            fit1=0;fit2=0;fit3=0;fit4=0;
-v
+            %fit1=0;fit2=0;fit3=0;fit4=0;
+            %fit=[fit1,fit2,fit3,fit4];
+            fit=[0,0,0,0];
+            for j=1:k
+                fit(strategy_state(j))=fit(strategy_state(j))+fitness_calculate(friend_list(j));
+            end
+            fit(i)=fit(i)+fit_self;
+            sigma=sum(fit);
+            judge1=fit(1)/sigma;
+            judge2=fit(1)+fit(2)/sigma;
+            judge3=1-fit(4)/sigma;
+            temp=strategy_state(i);
+            rn=rand;                    %%rn为[0,1]的随机数
+            if rn<=judge1                %%三个门限，按fitness定义四个区间
+                strategy_state(i)=1;
+            end
+            if judge1<rn<=judge2
+                strategy_state(i)=2;
+            end
+            if judge2<rn<=judge3
+                strategy_state(i)=3;
+            end
+            if rn>judge3
+                strategy_state(i)=4;
+            end
 
-            if strategy_state(i)==1
-                for j=1:k
-                    fit
-
-
-                    if strategy_state(graph(i,j))
-                        
-
-
-
-
-
-            if video
-
-
-
-
-
-%           friend_list = find_friend(i,N);    %寻找i的邻居，返回一个1*N的矩阵，前k个有数，后面为0
-%           friend_number = length(friend_list);   %k
-            %calculate self-fitness
-
-            fit_f = 0; 
-            fit_n = 0;
-            if strategy_state(i)==1          %如果i自己forward
-                for j =1:friend_number     %j从1到k    
-                    if strategy_state(friend_list(j))==1              %如果i的邻居j，为forward
-                        fit_f = fit_f + fitness_calculate(friend_list(j));
-                    else                                            %如果i的邻居j，为not forward
-                        fit_n = fit_n + fitness_calculate(friend_list(j));           
-                    end
-                end
-                judge = fit_n/(fit_f + fit_n + fit_self);
-                rand_num = rand;              %rand_num为[0,1]间的数
-                if rand_num <= judge
-                    strategy_state(i) = 0;      %将自己变为not forward
-                end
-            else                       %如果i为not forward
-                for j =1:friend_number
-                    if strategy_state(friend_list(j))==1
-                        fit_f = fit_f + fitness_calculate(friend_list(j));
-                    else
-                        fit_n = fit_n + fitness_calculate(friend_list(j));
-                    end
-                end
-                judge = fit_f/(fit_f + fit_n + fit_self);
-                rand_num = rand;
-                if rand_num <= judge
-                    strategy_state(i) = 1;
-                end
-            end            
-         end
-        
-        x(time) = sum(strategy_state)/N;
+            if temp==strategy_state(i)        %%判断是否维持原状
+                return;
+            else
+                K(strategy_state(i))=K(strategy_state(i))+1;
+                K(temp)=K(temp)-1;
+            end
+        end
+        %x(i,time)=K(i)/N
+        Q=K';
+        x(:,time) = Q/N;
         time = time + 1;
     end
-    result = x;
+    result=x;
 end
