@@ -12,3 +12,5 @@ function list = find_friend(index, k)
     end
     list = friend_list;
 end
+
+

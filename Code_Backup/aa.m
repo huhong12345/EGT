@@ -3,33 +3,23 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
         fit = (1-alpha);     %fit=(1-alpha)+alpha*U
         l=1;
         for l<=k;
-            fit=fit+alpha*U[index,strategy_state[friend_matrix[index,l]]];
+            fit=fit+alpha*U(index,strategy_state(graph(index,l)));
             l=l+1;  
         end
         fit_result = fit;
     end
-    function output = myFun(input)
-        K=zeros
-        
-        
 
-    end
-
-    global friend_matrix
-    friend_matrix = graph;  %第i行表示第i个点的邻居标号
-
-    strategy_state = zeros(1,N);  %定义出长度为N的0矩阵（1*N)
 
 
 
-%     for i = 1:N
-%         strategy_state(i) = randi(2)-1;
-%     end
+    strategy_state = zeros(1,N);  %定义出长度为N的0矩阵（1*N)
     z=[0.05,0.025,0.025,0.9];           %define the percentage of every strategy
-    starter_table=randperm(N);          %define the strategy state
-    for i=1:N
+    starter_table=randperm(N);          %打乱的
+    S1=[]
+    for i=1:N                           %define the strategy state 1,2,3,4
         if i<=N*z[1]
             strategy_state(starter_table(i))=1;
+            S1=[]
         end
         if N*z[1]<i<=N*z[2]
             strategy_state(starter_table(i))=2;
@@ -45,17 +35,21 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
     x=zeros(4,iterate_time);
     time = 1;
     for i=1:4
-        x(i,time) = sum(strategy_state)/(i*N);     %infinite the start 
+        x(i,time) = sum(strategy_state)/(i*N);     %initialize the start 
     end
-
-
-
 
     time = time + 1;
     while time<=iterate_time
         %每次遍历全部点，并根据IM——rule更新
          for p = 1:N
             i = randi(N);    %%随机从1000个人中选一个i
+            friend_list=friend_matrix(i,:);
+
+
+
+
+
+
             friend_list = find_friend(i,N);    %寻找i的邻居，返回一个1*N的矩阵，前k个有数，后面为0
             friend_number = length(friend_list);   %k
             %calculate self-fitness
