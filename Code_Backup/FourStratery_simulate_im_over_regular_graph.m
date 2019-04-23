@@ -2,11 +2,11 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
     function fit_result = fitness_calculate(index)
         fitness = (1-alpha);     %fit=(1-alpha)+alpha*U
         for q=1:k
-            fitness=fitness+alpha*U(index,strategy_state(graph(index,q)));%fitness=1+alpha*U(i,j)
+            fitness=fitness+alpha*U(strategy_state(index),strategy_state(graph(index,q)));%fitness=1+alpha*U(i,j)
         end
         fit_result = fitness;
     end
-    fit
+    
 
     strategy_state = zeros(1,N);  %定义出长度为N的0矩阵（1*N)
     z=[0.05,0.025,0.025,0.9];           %define the percentage of every strategy
