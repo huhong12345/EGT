@@ -6,6 +6,7 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
         end
         fit_result = fitness;
     end
+    fit
 
     strategy_state = zeros(1,N);  %定义出长度为N的0矩阵（1*N)
     z=[0.05,0.025,0.025,0.9];           %define the percentage of every strategy
