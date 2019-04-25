@@ -3,12 +3,12 @@ clear all;clc;
 %%parameters setting
 N=1000; %The scale of the Graph
 k=10; %The degree of a node
-uff=0.6;ufn=0.8;unn=0.4;  %payoff matrix
+uff=0.55;ufn=0.8;unn=0.4;  %payoff matrix
 U=[uff,ufn;ufn,unn];
-alpha=0.1;      %weak-connection parameter
+alpha=0.09;      %weak-connection parameter
 iteration_time=400;  
 G_N=10;       %The Repeating Graphs of simulation
-S_M=16;       %The Repeating times of simulation on one graph
+S_M=12;       %The Repeating times of simulation on one graph
 %N=single(N);
 %N=gpuArray(N);
 % k=gpuArray(k);
@@ -31,7 +31,6 @@ for i = 1:G_N
         %N=gpuArray(N);
         graph_sparse = createRandRegGraph(N, k);   %generate a sparse random regular graph
         graph_sparse=gather(graph_sparse);
-        %graph_sparse=single(graph_sparse);
         graph_matrix = full(graph_sparse);         %full the graph matrix    
         toc
         graph = graph_change(graph_matrix, N,k);
@@ -41,7 +40,7 @@ for i = 1:G_N
         Iteration_Results = zeros(S_M, iteration_time);
         toc
        
-       for j = 1: S_M    
+       parfor j = 1: S_M    
             fprintf('The iteration j time is %d\n',j);
             Iteration_Results(j, :) = simulate_im_over_regular_graph(U, graph, alpha, iteration_time, N,k);
         end
