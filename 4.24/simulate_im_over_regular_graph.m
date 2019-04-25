@@ -6,10 +6,9 @@ function result = simulate_im_over_regular_graph(U, graph, alpha, iterate_time, 
         end
         fit_result = fitness;
     end
-
     result=zeros(1,iterate_time);
     strategy_state = zeros(1,N);  %定义出长度为N的0矩阵（1*N)
-    z=[0.3,0.9];           %define the percentage of every strategy
+    z=[0.1,0.9];           %define the percentage of every strategy
     K=N*z;                        %K矩阵为最重要的比例矩阵
     starter_table=randperm(N);          %打乱的N个数
     %S1=[];S2=[];S3=[];S4=[];   
@@ -41,17 +40,19 @@ function result = simulate_im_over_regular_graph(U, graph, alpha, iterate_time, 
 %             judge1=fit(1)/sigma;
 %             judge2=fit(2)/sigma;
             b=strategy_state(i);
-            if b==1
-               judge2=fit(1)/sigma;
+            if b==1   %foward
+               judge2=fit(2)/sigma;
                rn=rand;
                if rn<=judge2
                    strategy_state(i)=2;
+                   K(1)=K(1)-1;
                end
-            else
-                judge1=fit(2)/sigma;
+            else         %not forward
+                judge1=fit(1)/sigma;
                 rn=rand;
                 if rn<=judge1
                     strategy_state(i)=1;
+                    K(1)=K(1)+1;
                 end
             end
             %judge2=fit(1)+fit(2)/sigma;
@@ -104,7 +105,8 @@ end
     
     
     
-    
+  
+
 % 
 % 
 % 
