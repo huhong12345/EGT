@@ -1,8 +1,8 @@
-clear all;clc;
 %% %%parameters setting
+clear all;clc;
 N=1000; %The scale of the Graph
 k=10; %The degree of a node
-uff=0.55;ufn=0.8;unn=0.4;  %payoff matrix
+uff=0.6;ufn=0.8;unn=0.4;  %payoff matrix
 U=[uff,ufn;ufn,unn];
 alpha=0.09;      %weak-connection parameter
 iteration_time=400;  
