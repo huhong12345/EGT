@@ -1,4 +1,4 @@
-function graph = graph_change(net, n)
+function graph = graph_change(net, n,k)
    graph = zeros(n,k);
    for i = 1:n
        count = 1;

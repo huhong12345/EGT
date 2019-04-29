@@ -7,9 +7,9 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
         fit_result = fitness;
     end
 
-    strategy_state = zeros(1,N);  %定义出长度为N的0矩阵（1*N)
+    strategy_state = zeros(1,N);  %定义出长度为N�?0矩阵�?1*N)
     z=[0.05,0.025,0.025,0.9];           %define the percentage of every strategy
-    K=N*z;                        %K矩阵为最重要的比例矩阵
+    K=N*z;                        %K矩阵为最重要的比例矩�?
     starter_table=randperm(N);          %打乱的N个数
     %S1=[];S2=[];S3=[];S4=[];   
     for i=1:N                           %define the strategy state 1,2,3,4
@@ -30,22 +30,22 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
            % S4=[S4,starter_table(i)]
         end   
     end  
-    %S=[S1;S2;S3;S4];    Si表示第i种策略人的标号集合
+    %S=[S1;S2;S3;S4];    Si表示第i种策略人的标号集�?
     x=zeros(4,iterate_time);
     time = 1;
     Q=K';
     x(:,time)=Q/N;     %initial the start 
     time = time + 1;
     while time<=iterate_time      
-        for p = 1:N          %每次遍历全部点，并根据IM——rule更新
-            i = randi(N);    %%随机从N个人中选一个i
+        for p = 1:N          %每次遍历全部点，并根据IM—�?�rule更新
+            i = randi(N);    %%随机从N个人中�?�一个i
             friend_list=graph(i,:);           
             fit_self = fitness_calculate(i);    %算出自己的fitness
             fit=[0,0,0,0];
             for j=1:k
                 fit(strategy_state(j))=fit(strategy_state(j))+fitness_calculate(friend_list(j));
             end
-            fit(i)=fit(i)+fit_self;
+            fit(strategy_state(i))=fit(strategy_state(i))+fit_self;
             sigma=sum(fit);
             judge1=fit(1)/sigma;
             judge2=fit(1)+fit(2)/sigma;
@@ -66,7 +66,7 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
             end
 
             if temp==strategy_state(i)        %%判断是否维持原状
-                return;
+                %return;
             else
                 K(strategy_state(i))=K(strategy_state(i))+1;
                 K(temp)=K(temp)-1;
@@ -77,5 +77,5 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
         x(:,time) = Q/N;
         time = time + 1;
     end
-    result=x;
+    result=x';
 end
