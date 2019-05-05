@@ -1,18 +1,12 @@
-%function show_sir(series,parameter)
 clc;clear all;
-%k=20;
-
-%x=[0.1,0.2,0.2,0.5];
-
-[t,x]=ode45(@im,[0:400],[0.1,0.2,0.3,0.4]);
+[t,x]=ode45(@im,[0:400],[0.6,0.2,0.1,0.1]);
 plot(t,x);
-
 
 function y=im(t,x)
 Ua=[0.6,0.8;0.8,0.4];
 Ub=[0.6,0.8;0.8,0.4];
 U=[Ua(1,1)*Ub,Ua(1,2)*Ub;Ua(2,1)*Ub,Ua(2,2)*Ub];
-k=20;
+k=10;
 f=U*x;
 fi=x'*f;
 b=zeros(4,4);
