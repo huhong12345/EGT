@@ -9,7 +9,6 @@ function A = createRandRegGraph(vertNum, deg)
 %
 % output arguments :
 %   A - A sparse matrix representation of the graph
-%
 % algorithm :
 % "The pairing model" : create n*d 'half edges'.
 % repeat as long as possible: pick a pair of half edges 
