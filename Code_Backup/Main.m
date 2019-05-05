@@ -4,8 +4,8 @@ N=1000; %The scale of the Graph
 k=20; %The degree of a node
 alpha=0.1;      %weak-connection parameter
 iteration_time=400;  
-G_N=2;       %The Repeating Graphs of simulation
-S_M=8;       %The Repeating times of simulation on one graph
+G_N=10;       %The Repeating Graphs of simulation
+S_M=12;       %The Repeating times of simulation on one graph
 Ua=[0.6,0.8;0.8,0.4];
 Ub=[0.6,0.8;0.8,0.4];
 %U=[];         %4*4 payoff matrix!!!!!!!!!!!!!!!!!!!!!!
@@ -33,5 +33,7 @@ for i = 1:G_N
 end
 
     Final_Results = mean(Graphth_Result,1);
+    result = zeros(iteration_time, 4);
+    result(:, :) = Final_Results(1, : , :);
     %Final_Results=gathar(Final_Results);
-    plot(Final_Results);
+    plot(result);
