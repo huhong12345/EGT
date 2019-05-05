@@ -18,7 +18,7 @@ function A = createRandRegGraph(vertNum, deg)
 % reference: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.67.7957&rep=rep1&type=pdf
 
 n = vertNum;
-n=gpuArray(n);
+%n=gpuArray(n);
 d = deg;
 matIter = 10;
 
