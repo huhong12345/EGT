@@ -1,5 +1,5 @@
 clear all
-A = rand(2000,2000);
+A = rand(20000,20000);
 tic
 A1 = gpuArray(single(A));
 [U,S,V] = svd(A1,'econ');

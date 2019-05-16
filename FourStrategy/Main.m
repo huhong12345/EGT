@@ -1,11 +1,11 @@
 clear all;clc;
 %%parameters setting%%%%%%%%%%%
-N=1000; %The scale of the Graph
-k=20; %The degree of a node
+N=5000; %The scale of the Graph
+k=50; %The degree of a node
 alpha=0.1;      %weak-connection parameter
-iteration_time=400;  
-G_N=10;       %The Repeating Graphs of simulation
-S_M=12;       %The Repeating times of simulation on one graph
+iteration_time=600;  
+G_N=20;       %The Repeating Graphs of simulation
+S_M=32;       %The Repeating times of simulation on one graph
 Ua=[0.6,0.8;0.8,0.4];
 Ub=[0.6,0.8;0.8,0.4];
 %U=[];         %4*4 payoff matrix!!!!!!!!!!!!!!!!!!!!!!
