@@ -6,12 +6,11 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
         end
         fit_result = fitness;
     end
-
     strategy_state = zeros(1,N);  
     z=[0.1,0.2,0.3,0.4];           %define the percentage of every strategy
     KK=zeros(1,4);
-    K=N*z;                        %K矩阵为最重要的比例矩�??
-    starter_table=randperm(N);          %打乱的N个数
+    K=N*z;                        %K is the population matrix
+    starter_table=randperm(N);          %create random N number out of order
     %S1=[];S2=[];S3=[];S4=[];   
     for i=1:N                           %define the strategy state 1,2,3,4
         m=starter_table(i);
@@ -33,7 +32,7 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
            % S4=[S4,starter_table(i)]
         end   
     end  
-    %S=[S1;S2;S3;S4];    Si表示第i种策略人的标号集�??
+    %S=[S1;S2;S3;S4]; %S is the dynamic population matrix
     x=zeros(4,iteration_time);
     time = 1;
     Q=K';
@@ -43,7 +42,7 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
         for p = 1:N          
             i = randi(N);    
             friend_list=graph(i,:);           
-            fit_self = fitness_calculate(i);    %算出自己的fitness
+            fit_self = fitness_calculate(i);    %caculate own fitness
             fit=[0,0,0,0];
             for j=1:k
                 fit(strategy_state(friend_list(j)))=fit(strategy_state(friend_list(j)))+fitness_calculate(friend_list(j));
@@ -55,8 +54,8 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
             judge3=1-fit(4)/sigma;
             w=(fit(1)+fit(2)+fit(3))/sigma;
             temp=strategy_state(i);
-            rn=rand;                    %%rn为[0,1]的随机数
-            if rn<=judge1                %%三个门限，按fitness定义四个区间
+            rn=rand;                    %%rn is a random number ranging in [0,1]
+            if rn<=judge1                %%three judge threshold, divide [0,1] to four part
                 strategy_state(i)=1;          
             elseif rn<=judge2
                 strategy_state(i)=2;
@@ -65,8 +64,8 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
             else
                 strategy_state(i)=4;
             end
-               eee=strategy_state(i);
-            if temp==strategy_state(i)        %%判断是否维持原状
+              % eee=strategy_state(i);
+            if temp==strategy_state(i)        %%to judge if strategy was changed or not
                 %return;
             else
                 K(strategy_state(i))=K(strategy_state(i))+1;

@@ -1,0 +1,19 @@
+N=4039;
+edge=88234;
+gfb=zeros(N,N);
+for q=1:edge
+     gfb(fb(q,1),fb(q,2))=1;
+end
+K=sum(gfb,2);
+K=K';
+kmax=max(K);
+for q=1:N
+      friend_listtemp = [];
+      l=1;
+      while gfb(q,l)~=0
+          friend_listtemp=[friend_listtemp(q),l];
+          l=l+1;
+      end
+      for m=1:
+      friend_listtemp
+end

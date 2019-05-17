@@ -1,5 +1,5 @@
 function list = find_friend_quick(index)
-    global con_matrix
+    %global con_matrix
     friend_list = [];
     number = 1;
     while con_matrix(index,number)~=0

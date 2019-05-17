@@ -2,10 +2,11 @@ k=20;
 [t,y]=ode45(@(t,y) odeFunFour(t,y,k),[0,400],[0.1,0.2,0.3,0.4]);
 plot(t,y);
 %plot(t,y,'-x');
-title('理论情况图');
-xlabel('Time t');
+title('信息扩散模型理论图');
+xlabel('时间轴');
 ylabel('策略所占比例');
 legend('FaFb','FaNb','NaFb','NaNb');
+grid on;
 
 
 
