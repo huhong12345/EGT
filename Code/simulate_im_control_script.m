@@ -35,3 +35,4 @@ function mean_2 = simulate_im_control_script(uff, ufn, unn, N, k, alpha, iterati
 %     plot(mean_2);
     
 end
+%F=@(p,H)((p(1)+1)*log(H(:,2))-p(1)*log(1-H(:,2))+log(-H(:,2)-p(1)))/(p(1)*(p(1)+1))+p(2)*exp(-p(3)*H(:,1))/p(3)+p(4);

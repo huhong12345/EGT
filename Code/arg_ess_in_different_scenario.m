@@ -59,13 +59,13 @@ hold on
 p2 = plot(ESS(2, :),'*--', 'Color', matlab_orange, 'LineWidth', 1.5);
 p3 = plot(ESS(3, :),'d--', 'Color', matlab_purple, 'LineWidth', 1.5);
 p4 = plot(ESS(4, :),'o--', 'Color', matlab_green, 'LineWidth', 1.5);
-legend1 = legend([p1], 'PM1 ·ÂÕæÎÈÌ¬Öµ');
+legend1 = legend([p1], 'PM1 æƒ…å†µä¸‹ä»¿çœŸç¨³æ€');
 ah = axes('position',get(gca,'position'),'visible','off');
-legend2 = legend(ah, [p2], 'PM2 ·ÂÕæÎÈÌ¬Öµ');
+legend2 = legend(ah, [p2], 'PM2 æƒ…å†µä¸‹ä»¿çœŸç¨³æ€Öµ');
 ah1 = axes('position',get(gca,'position'),'visible','off');
-legend3 = legend(ah1, [p3], 'PM3 ·ÂÕæÎÈÌ¬Öµ');
+legend3 = legend(ah1, [p3], 'PM3 æƒ…å†µä¸‹ä»¿çœŸç¨³æ€Öµ');
 ah2 = axes('position',get(gca,'position'),'visible','off');
-legend4 = legend(ah2, [p4], 'PM4 ·ÂÕæÎÈÌ¬Öµ');
+legend4 = legend(ah2, [p4], 'PM4 æƒ…å†µä¸‹ä»¿çœŸç¨³æ€');
 set(legend1, 'box', 'off');
 set(legend2, 'box', 'off');
 set(legend3, 'box', 'off');

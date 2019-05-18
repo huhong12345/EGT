@@ -1,26 +1,20 @@
 clear all;clc;
 %%parameters setting%%%%%%%%%%%
-N=4000; %The scale of the Graph
-k=43; %The degree of a node
+N=4039; %The scale of the Graph
 alpha=0.01;      %weak-connection parameter
 iteration_time=400;  
-G_N=20;       %The Repeating Graphs of simulation
+G_N=3;       %The Repeating Graphs of simulation
 S_M=32;       %The Repeating times of simulation on one graph
-U=[0.4,0.48,0.48,0.64;
+U=[0.36,0.48,0.48,0.64;
     0.48,0.24,0.64,0.32;
     0.48,0.64,0.24,0.32;
     0.64,0.32,0.32,0.2];
-
 Graphth_Result = zeros(G_N,iteration_time,4);      %To store the final result
 tic
 %make i graph results
 for i = 1:G_N
     fprintf('The iteration i of  graph is %d\n',i);
-    graph_sparse = createRandRegGraph(N, k);   %generate a sparse random regular graph     
-    toc
-    graph_sparse=gather(graph_sparse);   
-    graph_matrix = full(graph_sparse);         %full the graph matrix    
-    graph = graph_change(graph_matrix, N,k);
+    graph=create_fbgraph(N);
     Iteration_Results = zeros(S_M,iteration_time,4);
     toc
     parfor j = 1: S_M    
