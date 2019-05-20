@@ -3,6 +3,7 @@ function adp=adaptive_value_cal_with_t0(parameter,series)
     % function y = sir_pre(t,x)
     %     y = [-beta1*x(1)*x(2), beta1*x(1)*x(2)-gamma1*x(2),  gamma1*x(2)]';        
     % end
+    
     function dxdt=odeFunFour(t,x)
         w=alpha*(k*(k+3)*(k-2)*(k-2))/((k+1)*(k+1)*(k-1));
         f=U*x;
@@ -73,7 +74,7 @@ function adp=adaptive_value_cal_with_t0(parameter,series)
     % I = solution(:,2)+solution(:,3)+solution(:,6)+solution(:,7);
     % err = 0;
     T=I-series;
-    err=norm(T,'fro')
+    err=norm(T,'fro');
     % for i = 1:len
     %     err = err + (I(i)-series(i))^2;
     % end

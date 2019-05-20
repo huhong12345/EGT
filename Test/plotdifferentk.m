@@ -14,7 +14,7 @@ p4 = plot(ESS(4, :),'o--', 'Color', matlab_green, 'LineWidth', 1.5);
 % legend3 = legend(ah1, [p3], 'Case3 仿真稳态值');
 % ah2 = axes('position',get(gca,'position'),'visible','off');
 % legend4 = legend(ah2, [p4], 'Case4 仿真稳态值');
-title('ER随机网，IM更新规则，ESS稳定状态仿真值与理论值对比图');
+title('均衡度规则网络，IM更新规则，ESS稳定状态仿真值与理论值对比图');
 xlabel('平均度数');
 ylabel('ESS稳定状态下转发策略所占比例');
 set(gca,'XTick',1:9);

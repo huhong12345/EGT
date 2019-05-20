@@ -4,13 +4,13 @@ series = times;
 %粒子群的大小
 node_size = 40;
 %设置最大迭代次数
-Gk = 101;
+Gk = 100;%%迭代
 %设置位置的上下界以及速度的边界
 %beta1,beta2,gamma1,gamma2,alpha1,alpha2,delta1,delta2
-vmax = [0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1];
+vmax = [0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1;0.1];
 vmin = -vmax;
-xmax = [1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;30];
-xmin = [0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;5];
+xmax = [1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;60;0.2];
+xmin = [0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;5;0.005];
 % vmax = [1;1];
 % vmin = -vmax;
 % xmax = [20;20];
@@ -22,23 +22,23 @@ c2 = 2;
 w_ini = 0.9;
 w_end = 0.4;
 %初始化粒子群的位置参数,及速度参数，历史最优以及全局最优
-location = [zeros(17,node_size) ; 1./zeros(1,node_size)];
-velocity = zeros(17,node_size);
-gbest = [zeros(17,Gk); 1./zeros(1,Gk)];
-pbest = [zeros(17,node_size) ; 1./zeros(1,node_size)];
+location = [zeros(18,node_size) ; 1./zeros(1,node_size)];
+velocity = zeros(18,node_size);
+gbest = [zeros(18,Gk); 1./zeros(1,Gk)];
+pbest = [zeros(18,node_size) ; 1./zeros(1,node_size)];
 count = 1;
 for i = 1:node_size
     %初始化位置信息，三个维度的初始化要单独进行，以防止初始化点在xmin->xmax向量上
-    for j = 1:17
+    for j = 1:18
         location(j,i) = xmin(j) + (xmax(j) - xmin(j))*rand(1);
     end
-    location(18,i) = adaptive_value_cal_with_t0(location(1:17,i),series);
+    location(19,i) = adaptive_value_cal_with_t0(location(1:18,i),series);
     pbest(:,i) = location(:,i);
-    if location(18,i) < gbest(18, count)
+    if location(19,i) < gbest(19, count)
         gbest(:,count) = location(:,i);
     end
     %初始化速度，每个分量也需要单独进行，保证速度的分量不是在vmax->vmin向量上
-    for j = 1:17
+    for j = 1:18
         velocity(j,i) = vmin(j) + (vmax(j) - vmin(j))*rand(1);
     end
 end
@@ -47,16 +47,16 @@ while count <= Gk
     %先更新惯性因子
 %     w = (w_ini - w_end)*(Gk-count)/Gk + w_end;
     w = 1;
-    %当前的历史最优解先保持为上一次的历史最优解
+     %当前的历史最优解先保持为上一次的历史最优解
     gbest(:,count) = gbest(:,count-1); 
     for i = 1:node_size
         %速度更新公式----原始速度-----------------根据自身历史最优的调整量-------------------------根据全局历史最优的调整量---------------
         %三个维度分别更新,保证维度独立性
-        for j = 1:17
+        for j = 1:18
             velocity(j,i) = w * velocity(j,i) + c1 * rand(1) * (pbest(j,i)-location(j,i)) + c2 * rand(1) * (gbest(j,count) - location(j,i));
         end        
         %考虑速度的界限
-        for j = 1:17
+        for j = 1:18
             if velocity(j,i) > vmax(j)
                 velocity(j,i) = vmax(j);
             else
@@ -66,9 +66,9 @@ while count <= Gk
             end
         end
         %位置调整
-        location(1:17,i) = location(1:17,i) + velocity(:,i);
+        location(1:18,i) = location(1:18,i) + velocity(:,i);
         %考虑位置界限
-        for j = 1:17
+        for j = 1:18
             if location(j,i) < xmin(j)
                 location(j,i) = xmin(j);
             else
@@ -77,11 +77,11 @@ while count <= Gk
                 end
             end
         end
-        location(18,i) = adaptive_value_cal_with_t0(location(1:17,i),series);
-        if location(18,i) < pbest(18,i)
+        location(19,i) = adaptive_value_cal_with_t0(location(1:18,i),series);
+        if location(19,i) < pbest(19,i)
             pbest(:,i) = location(:,i);
         end
-        if location(18,i) < gbest(18,count)
+        if location(19,i) < gbest(19,count)
             gbest(:,count) = location(:,i);
         end
     end

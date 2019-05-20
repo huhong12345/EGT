@@ -1,8 +1,8 @@
 %clc;clear all;
 %hold on
-[t,x]=ode45(@im,[0,400],[0.1,0.9]);
+[t,y]=ode45(@im,[0,400],[0.1,0.9]);
 %figure(5)
-qqq=x(:,1);
+qqq=y(:,1);
 plot(t,qqq);
 
 function y=im(t,x)
