@@ -1,0 +1,14 @@
+matlab_blue = [0,114,189]/255;
+matlab_orange = [217,83,25]/255;
+matlab_purple = [126, 47, 142]/255;
+matlab_green = [119, 172, 48]/255;
+realESS=[1,1,1,1,1,1,1,1;0.76,0.72272,0.71,0.7,0.6918,0.691,0.69,0.689;
+    0.232,0.27,0.29]
+0.6852]
+
+
+plot(ESS(1, :),'^--', 'Color', matlab_blue, 'LineWidth', 1.5);
+hold on
+plot(ESS(2, :),'*--', 'Color', matlab_orange, 'LineWidth', 1.5);
+plot(ESS(3, :),'d--', 'Color', matlab_purple, 'LineWidth', 1.5);
+plot(ESS(4, :),'o--', 'Color', matlab_green, 'LineWidth', 1.5);

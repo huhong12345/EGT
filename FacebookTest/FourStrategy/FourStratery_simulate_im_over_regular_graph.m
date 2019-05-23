@@ -48,7 +48,7 @@ function result = FourStratery_simulate_im_over_regular_graph(U,graph, alpha, it
             end         
             fit_self = fitness_calculate(i,KK(i));    %caculate own fitness
             fit=[0,0,0,0];
-            for j=1:k
+            for j=1:KK(i)
                 fit(strategy_state(friend_list(j)))=fit(strategy_state(friend_list(j)))+fitness_calculate(friend_list(j),KK(friend_list(j)));
             end
             fit(strategy_state(i))=fit(strategy_state(i))+fit_self;
