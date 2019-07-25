@@ -5,7 +5,7 @@ k=20; %The degree of a node
 alpha=0.01;      %weak-connection parameter
 iteration_time=1000;  
 G_N=20;       %The Repeating Graphs of simulation
-S_M=32;       %The Repeating times of simulation on one graph
+S_M=36;       %The Repeating times of simulation on one graph
 U=[0.4,0.48,0.48,0.64;
     0.48,0.24,0.64,0.32;
     0.48,0.64,0.24,0.32;
@@ -16,20 +16,20 @@ tic
 %make i graph results
 for i = 1:G_N
     fprintf('The iteration i of  graph is %d\n',i);
-    graph_sparse = createRandRegGraph(N, k);   %generate a sparse random regular graph
-    
-    toc
-    graph_sparse=gather(graph_sparse);   
-    graph_matrix = full(graph_sparse);         %full the graph matrix  
+%     graph_sparse = createRandRegGraph(N, k);   %generate a sparse random regular graph
+%     
+%     toc
+%     graph_sparse=gather(graph_sparse);   
+%     graph_matrix = full(graph_sparse);         %full the graph matrix  
     % -----------------------------------------------------------
 %       generate scale-free graph
 % -----------------------------------------------------------
-%         seed = seed_produce(k/2+1);
-%         graph_matrix = SFNG(N, k/2, seed);
+         seed = seed_produce(k/2+1);
+         graph_matrix = SFNG(N, k/2, seed);
 % -----------------------------------------------------------
 %       generate ER graph
 % -----------------------------------------------------------
-%       graph_matrix = ERRandomGraphGenerate(N, k/N);
+  %    graph_matrix = ERRandomGraphGenerate(N, k/N);
 % -----------------------------------------------------------  
 
     graph = graph_change(graph_matrix, N);

@@ -16,11 +16,11 @@ tic
 %make i graph results
 for i = 1:G_N
     fprintf('The iteration i of  graph is %d\n',i);
-    graph_sparse = createRandRegGraph(N, k);   %generate a sparse random regular graph
-    
-    toc
-    graph_sparse=gather(graph_sparse);   
-    graph_matrix = full(graph_sparse);         %full the graph matrix  
+%     graph_sparse = createRandRegGraph(N, k);   %generate a sparse random regular graph
+%     
+%     toc
+%     graph_sparse=gather(graph_sparse);   
+%     graph_matrix = full(graph_sparse);         %full the graph matrix  
     % -----------------------------------------------------------
 %       generate scale-free graph
 % -----------------------------------------------------------
@@ -29,7 +29,7 @@ for i = 1:G_N
 % -----------------------------------------------------------
 %       generate ER graph
 % -----------------------------------------------------------
-%       graph_matrix = ERRandomGraphGenerate(N, k/N);
+      graph_matrix = ERRandomGraphGenerate(N, k/N);
 % -----------------------------------------------------------  
 
     graph = graph_change(graph_matrix, N);
