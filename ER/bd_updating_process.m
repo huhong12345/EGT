@@ -29,7 +29,7 @@ function result = bd_updating_process(uff, ufn, unn, con_matrix, alpha, iterate_
 		%times alpha together to save calculation time
         fit_result = (1-alpha) + alpha * fit;
     end
-	
+	%%
 	function friend_list = find_friend(index)
 		friend_list = [];
 		k = 1;
